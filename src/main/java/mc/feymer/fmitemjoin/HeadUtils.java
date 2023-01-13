@@ -1,11 +1,13 @@
 package mc.feymer.fmitemjoin;
 
+import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.UUID;
 
 public class HeadUtils {
 
-    public static ItemStack getSkull(String url ) {
+    public static @NotNull ItemStack getSkull(String url ) {
         ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         if (url == null || url.isEmpty()) return itemStack;
 
@@ -42,9 +44,10 @@ public class HeadUtils {
         skullMeta.setDisplayName(color(Main.getInstance().getConfig().getString("item-join.name")));
 
         List<String> lores = Main.getInstance().getConfig().getStringList("item-join.lore");
-        lores.forEach(lore -> lores.add(color(lore)));
+        List<String> lore = Lists.newArrayList();
 
-        skullMeta.setLore(lores);
+        lores.forEach(line -> lore.add(color(line)));
+        skullMeta.setLore(lore);
 
         itemStack.setItemMeta(skullMeta);
         return itemStack;
