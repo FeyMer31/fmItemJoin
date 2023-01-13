@@ -23,8 +23,8 @@ public class HeadUtils {
         SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), null);
 
-        byte [] skullbyte = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", "http://textures.minecraft.net/texture/" + url ).getBytes());
-        gameProfile.getProperties().put("textures", new Property("textures", new String(skullbyte)));
+        byte[] encodedData = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
+        gameProfile.getProperties().put("textures", new Property("textures", new String(encodedData)));
 
         Field field;
         try {
