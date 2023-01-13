@@ -42,9 +42,7 @@ public class HeadUtils {
         skullMeta.setDisplayName(color(Main.getInstance().getConfig().getString("item-join.name")));
 
         List<String> lores = Main.getInstance().getConfig().getStringList("item-join.lore");
-        for (String line : lores) {
-            lores.add(color(line));
-        }
+        lores.forEach(lore -> lores.add(color(lore)));
 
         skullMeta.setLore(lores);
 
