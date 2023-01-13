@@ -15,6 +15,8 @@ public final class Main extends JavaPlugin implements Listener {
         getLogger().info("Плагин включен!");
         Bukkit.getPluginManager().registerEvents(this, this);
 
+        // Привет, я MishaNeYT
+
     }
 
     @EventHandler
