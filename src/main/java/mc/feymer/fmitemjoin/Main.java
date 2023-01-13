@@ -12,11 +12,9 @@ public final class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         instance = this;
+        saveDefaultConfig();
         getLogger().info("Плагин включен!");
         Bukkit.getPluginManager().registerEvents(this, this);
-
-        // Привет, я MishaNeYT
-
     }
 
     @EventHandler
