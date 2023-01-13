@@ -10,6 +10,8 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
@@ -23,8 +25,15 @@ public class HeadUtils {
         SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), null);
 
+        URI actualUrl;
+        try {
+            actualUrl = new URI(url);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
         // Уникальный код головы Value
-        String toEncode = "{\"textures\":{\"SKIN\":{\"url\":\"" + url + "\"}}}";
+        String toEncode = "{\"textures\":{\"SKIN\":{\"url\":\"" + actualUrl + "\"}}}";
         Base64.getEncoder().encodeToString(toEncode.getBytes());
 
         // Добавление текстурки
