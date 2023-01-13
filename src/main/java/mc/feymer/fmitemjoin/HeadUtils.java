@@ -25,7 +25,7 @@ public class HeadUtils {
         byte [] skullbyte = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", "http://textures.minecraft.net/texture/" + url ).getBytes());
         gameProfile.getProperties().put("textures", new Property("textures", new String(skullbyte)));
 
-        Field field = null;
+        Field field;
         try {
             field = skullMeta.getClass().getDeclaredField("profile");
         } catch (NoSuchFieldException e) {
@@ -39,12 +39,13 @@ public class HeadUtils {
             throw new RuntimeException(e);
         }
 
-        List <String> lores = new ArrayList<>();
-        lores.add(color("&fЕбой 1!!"));
-        lores.add(color("&fЕбой 2!!"));
-        lores.add(color("&fЕбой 3!!"));
+        skullMeta.setDisplayName(color(Main.getInstance().getConfig().getString("item-join.name")));
 
-        skullMeta.setDisplayName(color("&fКастомная голова"));
+        List<String> lores = Main.getInstance().getConfig().getStringList("item-join.lore");
+        for (String line : lores) {
+            lores.add(color(line));
+        }
+
         skullMeta.setLore(lores);
 
         itemStack.setItemMeta(skullMeta);
