@@ -1,16 +1,17 @@
 package mc.feymer.fmitemjoin;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 public final class Main extends JavaPlugin implements Listener {
-    public static Main instance;
+
+    private static Main instance;
 
     @Override
     public void onEnable() {
@@ -24,23 +25,22 @@ public final class Main extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onJoin(@NotNull PlayerJoinEvent e) {
-        Player player = e.getPlayer();
-        player.getInventory().setItem(0, HeadUtils.getSkull(getConfig().getString("item-join.skull")));
+        e.getPlayer().getInventory().setItem(0, HeadUtils.getSkull(getConfig().getString("item-join.skull")));
     }
 
     @EventHandler
     public void onAction(@NotNull PlayerInteractEvent e) {
+
+        // Проверка на нажатие
+        if (!(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
+
+        // Проверка на исключения и название предмета
         if (e.getItem() != null && e.getItem().getItemMeta() != null && e.getItem().getItemMeta().getDisplayName().equals(getConfig().getString("item-join.name"))) {
-            e.getPlayer().performCommand(getConfig().getString("item-join.action"));
+            e.getPlayer().chat(getConfig().getString("item-join.action"));
         }
     }
 
-    @Override
-    public void onDisable() {
-        getLogger().info("Плагин выключен!");
-    }
-
-    public static Main getInstance() {
+    public synchronized static Main getInstance() {
         return instance;
     }
 }

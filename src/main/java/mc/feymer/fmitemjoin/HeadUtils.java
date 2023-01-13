@@ -10,14 +10,13 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
 public class HeadUtils {
 
-    public static @NotNull ItemStack getSkull(String url ) {
+    public static @NotNull ItemStack getSkull(String url) {
         ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         if (url == null || url.isEmpty()) return itemStack;
 
