@@ -23,8 +23,12 @@ public class HeadUtils {
         SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), null);
 
-        byte[] encodedData = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
-        gameProfile.getProperties().put("textures", new Property("textures", new String(encodedData)));
+        // Уникальный код головы Value
+        String toEncode = "{\"textures\":{\"SKIN\":{\"url\":\"" + url + "\"}}}";
+        Base64.getEncoder().encodeToString(toEncode.getBytes());
+
+        // Добавление текстурки
+        gameProfile.getProperties().put("textures", new Property("textures", toEncode));
 
         Field field;
         try {
