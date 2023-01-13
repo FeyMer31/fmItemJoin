@@ -1,0 +1,5 @@
+name: fmItemJoin
+version: '${project.version}'
+main: mc.feymer.fmitemjoin.Main
+authors: [ FeyMer ]
+website: vk.com/feymer3
